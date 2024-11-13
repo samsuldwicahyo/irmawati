@@ -1,249 +1,241 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="id">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Peta Desa Kalialang</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peta Desa Karangtalun Lor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+:root {
+  --bg-light: #ffe6f2; /* Warna pink pastel untuk latar belakang terang */
+  --bg-dark: #2b2b2b; /* Warna gelap tetap digunakan */
+  --text-light: #5e2b5a; /* Warna ungu pastel untuk teks pada latar terang */
+  --text-dark: #ffccff; /* Warna pink terang untuk teks pada latar gelap */
+  --navbar-light: #ff80ab; /* Warna pink terang untuk navbar */
+  --navbar-dark: #4a4a4a; /* Warna abu-abu gelap untuk navbar saat mode gelap */
+  --highlight-light: #ffb3c6; /* Warna highlight pink pastel */
+  --highlight-dark: #555; /* Warna highlight tetap gelap */
+}
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="./resources/ol.css">
-    <link rel="stylesheet" href="resources/fontawesome-all.min.css">
-    <link href="resources/ol-geocoder.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./resources/ol-layerswitcher.css">
-    <link rel="stylesheet" href="./resources/qg gis2web.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+body {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  transition: background-color 0.3s, color 0.3s;
+}
 
-    <!-- Custom Inline Styles -->
-    <style>
-        /* General styling */
-        body {
-            background-color: #ffffff;
-            color: #333;
-            margin: 0;
-            padding-top: 56px;
-        }
-        
-        /* Map Box Styling */
-        #map-box {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        #map-container {
-            width: 100%;
-            max-width: 800px; /* Set max width */
-            height: 600px; /* Set fixed height */
-            border: 2px solid #ddd;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        #map {
-            width: 100%;
-            height: 100%;
-        }
+.navbar {
+  background-color: var(--navbar-light);
+  transition: background-color 0.3s;
+}
 
-        /* Navbar styling */
-        .navbar {
-            background-color: #ff4da6;
-        }
-        .navbar .nav-link, .navbar-brand {
-            color: white !important;
-        }
-        .navbar .nav-link:hover {
-            color: #ff1a75 !important;
-        }
+.hero-section {
+  background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmJiPN5xOo_V6KETFFmMW4Smoio_67uQdAcI_ZoiuWCIMY6Q5PY1dvtfHJEhbJQQQvts9e1OKGSf4GAAjUlJCBquFudHLgGiAV1deqDYudp0O-hLAia7W4p2U-iyPQqTJL8rs7VIu_cPWpRhzqj2FdCeOM-Je7HPan2wp46ii2dWqRs5uTzyNXrhxL/s1600/20220806_0955060981.jpg');
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  padding: 100px 0;
+  position: relative;
+  margin-top: 70px; /* Sesuaikan dengan tinggi navbar */
+}
 
-        /* Footer styling */
-        footer {
-            background-color: #ff4da6;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            margin-top: 30px;
-        }
-         /* About Section Styling */
-    .about-section {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        padding: 3rem 0;
-    }
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
 
-    .about-section .container {
-        max-width: 800px;
-        margin: auto;
-        text-align: center;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 2rem;
-        border-radius: 8px;
-        background-color: #ffffff;
-    }
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: auto;
+}
 
-    .section-title {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #343a40;
-        margin-bottom: 1rem;
-    }
+.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
 
-    .underline {
-        width: 80px;
-        height: 4px;
-        background-color: #007bff;
-        margin: 0.5rem auto 1.5rem;
-        border-radius: 2px;
-    }
+.dark-mode .navbar {
+  background-color: var(--navbar-dark);
+}
 
-    .section-description {
-        font-size: 1.1rem;
-        color: #6c757d;
-        line-height: 1.75;
-        margin-top: 1rem;
-    }
-    </style>
+.section {
+  padding: 50px 0;
+}
+
+.dark-mode .bg-light {
+  background-color: var(--bg-dark) !important;
+}
+
+.dark-mode .bg-info {
+  background-color: var(--highlight-dark) !important;
+}
+
+.footer {
+  background-color: var(--navbar-light);
+  color: var(--text-light);
+  padding: 20px 0;
+}
+
+.dark-mode .footer {
+  background-color: var(--navbar-dark);
+  color: var(--text-dark);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#theme-toggle {
+  border: none;
+  background-color: #ff66b2; /* Warna pink terang untuk tombol light mode */
+  color: #fff;
+  font-size: 18px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Warna tombol saat mode gelap */
+.dark-mode #theme-toggle {
+  background-color: #9c27b0; /* Warna ungu tua untuk tombol dark mode */
+  color: #ffccff;
+}
+
+/* Hover efek untuk tombol toggle */
+#theme-toggle:hover {
+  background-color: #ff4081; /* Pink terang untuk hover di light mode */
+}
+
+.dark-mode #theme-toggle:hover {
+  background-color: #7b1fa2; /* Ungu lebih gelap untuk hover di dark mode */
+}
+
+
+  </style>
 </head>
 <body>
-
+  <!-- Navbar -->
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Peta Interaktif Desa Kalialang</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-map-marker-alt"></i> Desa 
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="#home"><i class="fas fa-home"></i> Beranda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#map"><i class="fas fa-map"></i> Peta</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#description"><i class="fas fa-info-circle"></i> Keterangan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about"><i class="fas fa-users"></i> Tentang</a>
+          </li>
+        </ul>
+        <button id="theme-toggle">
+          <i id="theme-icon" class="fas fa-sun"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#home">Beranda</a></li>
-                <li class="nav-item"><a class="nav-link" href="#map">Peta</a></li>
-                <li class="nav-item"><a class="nav-link" href="#description">Keterangan</a></li>
-                <li class="nav-item"><a class="nav-link" href="#about">Tentang</a></li>
-            </ul>
-        </div>
+      </div>
     </div>
-</nav>
+  </nav>
+  
 
-<!-- Map Section -->
-<section id="map-box" class="py-5">
-    <div id="map-container">
-        <!-- Map will display here -->
-        <div id="map">
-            <div id="popup" class="ol-popup">
-                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-                <div id="popup-content"></div>
-            </div>
-        </div>
-    </div>
+<!-- Bagian Beranda -->
+<div class="hero-section text-center" id="home">
+  <div class="container hero-content">
+    <h1 class="display-5">Selamat Datang di Desa Kali Alang</h1>
+    <p class="lead">
+      Desa Kali Alang, terletak di Kecamatan Sokaraja, Kabupaten Banyumas. Desa ini menawarkan pemandangan alam yang asri dengan sentuhan budaya lokal yang masih terjaga, menjadikannya salah satu destinasi menarik di wilayah Sokaraja.
+    </p>
+  </div>
+</div>
+
+<!-- Bagian Peta -->
+<section id="map" class="bg-light section">
+  <div class="container text-center">
+    <h2><i class="fas fa-map-marked-alt"></i> Peta Desa Kali Alang</h2>
+    <iframe src="Peta.html" style="width: 100%; height: 500px; border: none;"></iframe>
+  </div>
 </section>
 
-<!-- Description Section -->
-<!-- Description Section as Map Index -->
-<section id="description" class="py-5 bg-light" style="background-color: #f8f9fa; padding: 3rem 0;">
-    <div class="container" style="max-width: 800px; margin: auto;">
-        <h2 class="text-center" style="font-size: 2rem; font-weight: bold; margin-bottom: 1.5rem;">Peta Indeks Desa Kalialang</h2>
-        <p style="text-align: center; font-size: 1rem; color: #6c757d;">
-            Peta ini memberikan gambaran singkat tentang lokasi-lokasi utama di Desa Kalialang, termasuk infrastruktur, fasilitas umum, dan tempat-tempat penting lainnya.
-        </p>
-        <div class="map-index" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; text-align: center; margin-top: 2rem;">
-            <div class="index-item">
-                <img src="images/administrasi desa.png" alt="Administrasi Desa" style="width: 80px; height: auto; margin-bottom: 0.5rem;">
-                <p style="font-size: 0.9rem; color: #343a40;">Administrasi Desa</p>
-            </div>
-            <div class="index-item">
-                <img src="images/balai desa kalialang.png" alt="Balai Desa Kalialang" style="width: 80px; height: auto; margin-bottom: 0.5rem;">
-                <p style="font-size: 0.9rem; color: #343a40;">Balai Desa Kalialang</p>
-            </div>
-            <div class="index-item">
-                <img src="images/balai pertemuan.png" alt="Balai Pertemuan" style="width: 80px; height: auto; margin-bottom: 0.5rem;">
-                <p style="font-size: 0.9rem; color: #343a40;">Balai Pertemuan</p>
-            </div>
-            <div class="index-item">
-                <img src="images/bangunan.png" alt="Bangunan" style="width: 80px; height: auto; margin-bottom: 0.5rem;">
-                <p style="font-size: 0.9rem; color: #343a40;">Bangunan</p>
-            </div>
-            <div class="index-item">
-                <img src="images/jalan.png" alt="Jalan" style="width: 80px; height: auto; margin-bottom: 0.5rem;">
-                <p style="font-size: 0.9rem; color: #343a40;">Jalan</p>
-            </div>
-            <div class="index-item">
-                <img src="images/kuburan.png" alt="Kuburan" style="width: 80px; height: auto; margin-bottom: 0.5rem;">
-                <p style="font-size: 0.9rem; color: #343a40;">Kuburan</p>
-            </div>
-            <div class="index-item">
-                <img src="images/lapangan.png" alt="Lapangan" style="width: 80px; height: auto; margin-bottom: 0.5rem;">
-                <p style="font-size: 0.9rem; color: #343a40;">Lapangan</p>
-            </div>
-            <div class="index-item">
-                <img src="images/puskesmas.png" alt="Puskesmas" style="width: 80px; height: auto; margin-bottom: 0.5rem;">
-                <p style="font-size: 0.9rem; color: #343a40;">Puskesmas</p>
-            </div>
-            <div class="index-item">
-                <img src="images/sawah.png" alt="Sawah" style="width: 80px; height: auto; margin-bottom: 0.5rem;">
-                <p style="font-size: 0.9rem; color: #343a40;">Sawah</p>
-            </div>
-            <div class="index-item">
-                <img src="images/sungai.png" alt="Sungai" style="width: 80px; height: auto; margin-bottom: 0.5rem;">
-                <p style="font-size: 0.9rem; color: #343a40;">Sungai</p>
-            </div>
-            <div class="index-item">
-                <img src="images/tempat ibadah.png" alt="Tempat Ibadah" style="width: 80px; height: auto; margin-bottom: 0.5rem;">
-                <p style="font-size: 0.9rem; color: #343a40;">Tempat Ibadah</p>
-            </div>
-        </div>
-    </div>
+<!-- Bagian Keterangan -->
+<section id="description" class="bg-info section">
+  <div class="container">
+    <h2><i class="fas fa-info-circle"></i> Keterangan</h2>
+    <p>
+      Desa Kali Alang merupakan desa yang terkenal dengan potensi alam dan pertaniannya di Kecamatan Sokaraja. Wilayah ini didominasi oleh lahan pertanian, perkebunan, serta beberapa sentra usaha kecil menengah yang memproduksi kerajinan tangan khas Banyumas.
+    </p>
+    <p>
+      Desa ini memiliki akses yang cukup baik dengan tersedianya angkutan umum dan jalur transportasi yang memudahkan warga maupun pengunjung untuk beraktivitas. Keberadaan pasar desa dan warung tradisional memberikan akses mudah bagi masyarakat untuk mendapatkan kebutuhan sehari-hari.
+    </p>
+    <p>
+      Kehidupan masyarakat di Kali Alang sangat beragam, terdiri dari petani, pedagang, dan pelaku usaha kecil. Desa ini juga memiliki beberapa fasilitas pendidikan dasar serta kegiatan keagamaan dan sosial yang aktif, mencerminkan masyarakat yang kompak dan peduli terhadap lingkungan sekitar.
+    </p>
+    <p>
+      Di Desa Kali Alang, terdapat beberapa area rekreasi dan taman desa yang sering digunakan oleh warga untuk berolahraga dan berkumpul. Selain itu, desa ini juga memiliki area persawahan yang menawarkan pemandangan hijau nan indah, menjadi daya tarik tersendiri bagi pengunjung yang ingin menikmati suasana pedesaan yang tenang.
+    </p>
+  </div>
 </section>
 
-
-<!-- About Section -->
-<section id="about" class="about-section">
-    <div class="container">
-        <h2 class="section-title">Tentang Peta Ini</h2>
-        <div class="underline"></div>
-        <p class="section-description">
-            Peta ini menunjukkan Desa Kalialang, Kecamatan Sokaraja, Kabupaten Banyumas. Peta ini menyajikan informasi geografis yang mendetail, menampilkan lokasi penting dan infrastruktur utama di desa. Melalui peta ini, pengguna dapat menemukan titik-titik strategis seperti kantor desa, sekolah, puskesmas, dan sarana umum lainnya.
-        </p>
-    </div>
+<!-- Bagian Tentang -->
+<section id="about" class="bg-dark text-light section">
+  <div class="container">
+    <h2><i class="fas fa-users"></i> Tentang Desa Kali Alang</h2>
+    <p>
+      Desa Kali Alang terletak di Kecamatan Sokaraja, Kabupaten Banyumas. Desa ini menjadi bagian dari pusat kegiatan agrikultur di wilayah Sokaraja, dengan fokus pada pertanian dan perkebunan yang menghasilkan berbagai produk unggulan seperti padi, sayur-mayur, dan buah-buahan.
+    </p>
+    <p>
+      Meskipun berkembang dengan fokus agrikultur, Desa Kali Alang tetap mempertahankan nilai budaya lokal dengan sering mengadakan acara adat, seperti sedekah bumi dan kesenian kuda lumping yang menjadi daya tarik bagi warga lokal maupun wisatawan.
+    </p>
+    <p>
+      Beberapa ikon desa yang dikenal adalah masjid tua yang menjadi pusat kegiatan keagamaan, serta area persawahan yang menawarkan pemandangan menyejukkan mata. Desa ini juga terkenal dengan kuliner lokal seperti tempe mendoan dan soto Sokaraja yang menjadi favorit bagi pengunjung.
+    </p>
+    <p>
+      Dengan perkembangan infrastruktur yang semakin baik, Desa Kali Alang terus berupaya meningkatkan fasilitas publik seperti jalan desa yang lebih baik, layanan kesehatan, dan pendidikan. Hal ini menjadikan Desa Kali Alang sebagai salah satu desa yang menarik untuk dikunjungi maupun dijadikan tempat tinggal.
+    </p>
+  </div>
 </section>
 
+  
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <p>&copy; 2024 Peta Desa Kalialang | Dibuat oleh Irmawati Tri Wahyuni</p>
+  </footer>
+  
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const body = document.body;
 
-<!-- Footer -->
-<footer>
-    <p>&copy; 2024 Peta Interaktif Desa Kalialang. Dibuat oleh Irmawati Triwahyuni</p>
-</footer>
+    function toggleTheme() {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        themeIcon.classList.replace('fa-sun', 'fa-moon');
+      } else {
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+      }
+    }
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- OpenLayers and Map Scripts -->
-<script src="resources/qgis2web_expressions.js"></script>
-<script src="./resources/functions.js"></script>
-<script src="./resources/ol.js"></script>
-<script src="./resources/ol-layerswitcher.js"></script>
-<script src="resources/ol-geocoder.js"></script>
-
-<!-- Layer and Style Scripts -->
-<script src="layers/batasdesa_0.js"></script>
-<script src="layers/sungai_1.js"></script>
-<script src="layers/wilayahrtrw_2.js"></script>
-<script src="layers/bangunan_3.js"></script>
-<script src="layers/fasilitasdesa_4.js"></script>
-<script src="layers/ADMINISTRASIDESA_5.js"></script>
-<script src="layers/jalandesakalialang_6.js"></script>
-<script src="layers/gangdesakalialang_7.js"></script>
-<script src="styles/batasdesa_0_style.js"></script>
-<script src="styles/sungai_1_style.js"></script>
-<script src="styles/wilayahrtrw_2_style.js"></script>
-<script src="styles/bangunan_3_style.js"></script>
-<script src="styles/fasilitasdesa_4_style.js"></script>
-<script src="styles/ADMINISTRASIDESA_5_style.js"></script>
-<script src="styles/jalandesakalialang_6_style.js"></script>
-<script src="styles/gangdesakalialang_7_style.js"></script>
-
-<!-- Main Map Script -->
-<script src="./layers/layers.js"></script>
-<script src="./resources/Autolinker.min.js"></script>
-<script src="./resources/qgis2web.js"></script>
-
+    themeToggle.addEventListener('click', toggleTheme);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
