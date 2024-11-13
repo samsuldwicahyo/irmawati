@@ -21,7 +21,7 @@ var style_PEMERINTAHAN_PT_25K_6 = function(feature, resolution){
         labelText = String(feature.get("NAMOBJ"));
     }
     var style = [ new ol.style.Style({
-        image: new ol.style.RegularShape({radius: 6.000000000000002 + size, points: 3,
+        image: new ol.style.RegularShape({radius: 6.0 + size, points: 3,
             stroke: new ol.style.Stroke({color: 'rgba(50,87,128,1.0)', lineDash: null, lineCap: 'butt', lineJoin: 'miter', width: 1.52}), fill: new ol.style.Fill({color: 'rgba(72,123,182,1.0)'})}),
         text: createTextStyle(feature, resolution, labelText, labelFont,
                               labelFill, placement, bufferColor,
